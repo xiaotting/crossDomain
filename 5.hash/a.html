@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路径后面的hash值 解决跨域</title>
+</head>
+<body>
+    a从c 获取数据
+    a,b同源
+    c 独立源
+    a页面通过iframe将c页面嵌入，通过hash向c页面传递信息，
+    c页面通过iframe将b页面嵌入，通过hash向b页面传递信息，
+    // 因为a,b同源，可以进行hash的复制
+    b页面将自己的hash值赋值给a 页面
+
+    <iframe src="http://localhost:4000/c.html#你好呀" frameborder="0" id="frame"></iframe>
+    <script>
+        // hash 值改变后的一个回调
+        window.onhashchange = function(){
+            console.log(decodeURI(location.hash));
+        }
+    </script>
+</body>
+</html>

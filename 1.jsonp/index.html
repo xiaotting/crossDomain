@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsonp 实现跨域</title>
+</head>
+<body>
+    <!--
+        jsonp 实现原理：script标签不受同源策略的限制
+        jsonp 实现跨域的条件：
+            1.不同源的服务器接口返回的是一个函数调用（callback(params)）
+            2.本源要有一个与不同源接口返回的函数调用名一致的回调函数 (function callback(params){})
+        jsonp 缺点： 
+            1.只能用于get请求
+            2.不安全，容易造成xss攻击
+    -->
+    
+    <script >
+        // function jsonp({url,params,cb}){
+        //     let script = document.createElement('script')
+        //     return new Promise((resolve,reject)=>{
+        //         //在全局创建一个协商好的回调函数
+        //         window[cb] = function(data){
+        //             resolve(data)
+        //             document.body.removeChild(script)
+        //         }
+        //         params = {...params,cb}
+        //         let arrs = []
+        //         for(let key in params){
+        //             arrs.push(`${key}=${params[key]}`)
+        //         }
+        //         script.src = `${url}?${arrs.join('&')}`
+        //         document.body.appendChild(script)
+        //     })
+        // }
+        // jsonp({
+        //     url:'http://localhost:3000/say',  //请求接口
+        //     params:{prod:'pc',wd:'ll'},   //参数
+        //     cb:'show'  // 回调函数名
+        // }).then(data=>{
+        //     console.log(data)
+        // })
+    </script>
+    <script>
+        // 以百度为例
+        let script = document.createElement('script');
+        script.src = "https://www.baidu.com/sugrec?prod=pc&wd=nihao&cb=show";
+        document.body.appendChild(script);
+        function show(data){
+            // 跨域请求接口的回调函数
+            console.log(data);
+        }
+    </script>
+</body>
+</html>

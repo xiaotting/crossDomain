@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>domain 跨域</title>
+</head>
+<body>
+    hello aa
+    a 是通过http://a.xt.cn:3000/a.html
+    // 修改一下hosts文件 127.0.0.1 映射到 b.xt.cn 与 a.xt.cn  //实现两个不同域的地址
+    <iframe src="http://b.xt.cn:3000/b.html" frameborder="0" onload="load()" id="frame"></iframe>
+    <script>
+        document.domain = "xt.cn";
+        function load(){
+            let frame = document.getElementById('frame');
+            console.log(frame.contentWindow.a);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>postMessage解决跨域</title>
+</head>
+<body>
+    <div>
+        <p>
+            postMessage使用语法：
+            otherWindow.postMessage(message, targetOrigin, [transfer]);  //发送消息
+        </p>
+        <p>
+            otherWindow:其他窗口的一个引用，比如iframe的contentWindow属性、执行window.open返回的窗口对象、或者是命名过或数值索引的window.frames <br/>
+            message:要发送的消息<br/>
+            targetOrigin:接收消息事件的窗口 
+        </p>   
+
+        <p>
+        窗口接收消息： window.addEventListener('message',function(){},false)  / window.onmessage = function(){} <br/>
+        </p>
+    </div>
+    <iframe src="http://localhost:4000/b.html" frameborder="0" id="frame" onload="load()"></iframe>
+    <script>
+    //本页面地址：http://localhost:3000/a.html
+        function load(){
+            let frame = document.getElementById('frame');
+            // postMessage向b页面发送消息
+            frame.contentWindow.postMessage('你好呀','http://localhost:4000');
+        }
+        // 接收b页面的消息
+        window.onmessage = function(e){
+            console.log(e.data); 
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cros 实现跨域</title>
+    <style>
+        
+       
+    </style>
+</head>
+<body>
+    <div> cors跨域</div>
+    <script>
+      function fetch({url,method,data}){
+          return new Promise((resolve,reject)=>{
+            var xhr = new XMLHttpRequest();
+            var method = method || "GET";
+            var data = data || null;
+            xhr.open(method,url,true);
+            xhr.send(data)
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 &&  xhr.status<=400){
+                        resolve (xhr.response)}
+                    }else if(xhr.status > 400) {
+                        reject (xhr.response)
+                    }
+                }
+          })
+      }
+
+      fetch({
+          url:'http://localhost:4000/say',
+          method:'GET',
+          data:{name:'hello'}
+      }).then((data)=>{
+        console.log(data)
+      })
+    </script>
+</body>
+</html>
