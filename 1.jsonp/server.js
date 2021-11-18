@@ -1,9 +1,9 @@
 let express = require('express');
 let app = express();
-app.get('/say',function(req,res){
+app.get('/say', function (req, res) {
     console.log(req)
-    let {wd,cb} = req.query
+    let { wd, callback } = req.query
     console.log(wd)
-    res.end(`${cb}('nihaoya')`)
+    res.end(`${callback}('nihaoya')`)
 })
 app.listen(3000)
